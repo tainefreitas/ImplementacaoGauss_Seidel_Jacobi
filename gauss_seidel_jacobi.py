@@ -3,8 +3,9 @@
 from __future__ import division  
 import numpy as np  
 from numpy import linalg 
-import matplotlib.pyplot as plt 
- 
+import matplotlib.pyplot as plt
+vet_x=[]
+
 def jacobi(A,b,x0,tol,N):  
     #preliminares
     A = A.astype('double')  
@@ -23,7 +24,9 @@ def jacobi(A,b,x0,tol,N):
             for j in np.concatenate((np.arange(0,i),np.arange(i+1,n))):  
                 x[i] -= A[i,j]*x0[j]  
             x[i] /= A[i,i] 
-            print(x[i],A[i,i])   
+            #print(x[i],A[i,i])
+            #plt.plot(x[i])
+            vet_x.append(x[i])
 
         #tolerancia  
         if (np.linalg.norm(x-x0,np.inf) < tol):  
@@ -31,7 +34,7 @@ def jacobi(A,b,x0,tol,N):
             return x  
         #prepara nova iteracao  
         x0 = np.copy(x)  
-    raise NameError('num. max. de iteracoes excedido.')
+ #   raise NameError('num. max. de iteracoes excedido.')
 
 def gauss_seidel(A,b,x0,tol,N):  
     #preliminares  
@@ -58,19 +61,23 @@ def gauss_seidel(A,b,x0,tol,N):
             return x  
         #prepara nova iteracao  
         x0 = np.copy(x)  
-    raise NameError('num. max. de iteracoes excedido.')
-A = np.array([[3,1,-1],
-               [-1, -4, 1],
-               [1, -2, 5]],
+#    raise NameError('num. max. de iteracoes excedido.')
+A = np.array([[2,5],
+               [3, 1]],
                dtype='double')
 #D = np.diag(np.diag(A))
 #L = np.tril(A) - D
 #U = np.triu(A) - D
-b = np.array([2, -10, 10])
+b = np.array([-3,2])
 tol = 0.00001
 N = 25
-x0 = np.array([0, 0, 0])
+x0 = np.array([5, 4])
 
 x_jacobi = jacobi(A, b, x0, tol, N)
-
-x_gauss = gauss_seidel(A, b, x0, tol, N)
+plt.plot(vet_x)
+plt.title("jacobi")
+plt.show()
+plt.savefig("grafico_jacobi.png")
+#Com a funcao exemplo, retorna que deu o nro max de iteracoes, e mesmo alterando, nao 
+#modificou o erro
+#x_gauss = gauss_seidel(A, b, x0, tol, N)
