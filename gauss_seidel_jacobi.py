@@ -4,7 +4,8 @@ from __future__ import division
 import numpy as np  
 from numpy import linalg 
 import matplotlib.pyplot as plt
-vet_x=[]
+vet_x = []
+vet_y = []
 
 def jacobi(A,b,x0,tol,N):  
     #preliminares
@@ -25,16 +26,15 @@ def jacobi(A,b,x0,tol,N):
                 x[i] -= A[i,j]*x0[j]  
             x[i] /= A[i,i] 
             #print(x[i],A[i,i])
-            #plt.plot(x[i])
             vet_x.append(x[i])
 
         #tolerancia  
         if (np.linalg.norm(x-x0,np.inf) < tol):  
-            print(x)
+            #print(x)
             return x  
         #prepara nova iteracao  
         x0 = np.copy(x)  
- #   raise NameError('num. max. de iteracoes excedido.')
+#   raise NameError('num. max. de iteracoes excedido.')
 
 def gauss_seidel(A,b,x0,tol,N):  
     #preliminares  
@@ -54,14 +54,15 @@ def gauss_seidel(A,b,x0,tol,N):
             for j in np.concatenate((np.arange(0,i),np.arange(i+1,n))):  
                 x[i] -= A[i,j]*x[j]  
             x[i] /= A[i,i]  
-            print(x[i],A[i,i])  
+            vet_y.append(x[i])
+          #  print(x[i],A[i,i])  
         #tolerancia  
         if (np.linalg.norm(x-x0,np.inf) < tol):  
-            print(x)
+            #print(x)
             return x  
         #prepara nova iteracao  
         x0 = np.copy(x)  
-#    raise NameError('num. max. de iteracoes excedido.')
+ #   raise NameError('num. max. de iteracoes excedido.')
 A = np.array([[2,5],
                [3, 1]],
                dtype='double')
@@ -69,15 +70,20 @@ A = np.array([[2,5],
 #L = np.tril(A) - D
 #U = np.triu(A) - D
 b = np.array([-3,2])
-tol = 0.00001
+tol = 0.001
 N = 25
 x0 = np.array([5, 4])
 
 x_jacobi = jacobi(A, b, x0, tol, N)
-plt.plot(vet_x)
-plt.title("jacobi")
+plt.plot(A)
+plt.title("A")
 plt.show()
-plt.savefig("grafico_jacobi.png")
+plt.plot(vet_x)
+plt.title("Resultados Jacobi")
+plt.show()
 #Com a funcao exemplo, retorna que deu o nro max de iteracoes, e mesmo alterando, nao 
 #modificou o erro
-#x_gauss = gauss_seidel(A, b, x0, tol, N)
+x_gauss = gauss_seidel(A, b, x0, tol, N)
+plt.plot(vet_y)
+plt.title("Resultados Seidel")
+plt.show()
