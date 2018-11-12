@@ -98,13 +98,13 @@ N = 25
 x0 = np.array([5, 4])
 
 x_jacobi = jacobi(A, b, x0, tol, N)
-#
-# plt.plot[vet_x1]
 plt.plot(A)
+plt.plot(vet_x1, vet_x2)
 plt.title("Resultados Jacobi")
 plt.show()
 
 x_gauss = gauss_seidel(A, b, x0, tol, N)
-#plt.plot(vet_y)
-#plt.title("Resultados Seidel")
-#plt.show()
+plt.plot(A)
+plt.plot(vet_x1, vet_x2)
+plt.title("Resultados Seidel")
+plt.show()
