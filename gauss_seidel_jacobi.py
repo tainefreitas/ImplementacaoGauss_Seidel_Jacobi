@@ -55,7 +55,7 @@ def gauss_seidel(A,b,x0,tol,N):
     A = A.astype('double')  
     b = b.astype('double')  
     x0 = x0.astype('double')  
- 
+
     n=np.shape(A)[0]  
     x = np.copy(x0)  
     it = 0  
@@ -87,11 +87,10 @@ def gauss_seidel(A,b,x0,tol,N):
         x0 = np.copy(x)  
  #   raise NameError('num. max. de iteracoes excedido.')
 A = np.array([[2,5],
-               [3, 1]],
-               dtype='double')
-#D = np.diag(np.diag(A))
-#L = np.tril(A) - D
-#U = np.triu(A) - D
+            [3, 1]],
+            dtype='double')
+
+
 b = np.array([-3,2])
 tol = 0.001
 N = 25
